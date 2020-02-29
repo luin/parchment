@@ -1,30 +1,30 @@
-var webpackConfig = require('./webpack.conf');
+var webpackConfig = require("./webpack.conf");
 
 module.exports = function(config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine'],
+    basePath: "",
+    frameworks: ["jasmine"],
     files: [
-      'test/parchment.ts',
-      'test/registry/*.js',
-      'test/unit/linked-list.js', // Control test order
-      'test/unit/registry.js',
-      'test/unit/attributor.js',
-      'test/unit/blot.js',
-      'test/unit/container.js',
-      'test/unit/scroll.js',
-      'test/unit/block.js',
-      'test/unit/inline.js',
-      'test/unit/embed.js',
-      'test/unit/text.js',
-      'test/unit/lifecycle.js',
+      "test/parchment.ts",
+      "test/registry/*.js",
+      "test/unit/linked-list.js", // Control test order
+      "test/unit/registry.js",
+      "test/unit/attributor.js",
+      "test/unit/blot.js",
+      "test/unit/container.js",
+      "test/unit/scroll.js",
+      "test/unit/block.js",
+      "test/unit/inline.js",
+      "test/unit/embed.js",
+      "test/unit/text.js",
+      "test/unit/lifecycle.js"
     ],
     preprocessors: {
-      'test/registry/*.js': ['babel'],
-      'test/parchment.ts': ['webpack'],
+      "test/registry/*.js": ["babel"],
+      "test/parchment.ts": ["webpack"]
     },
     mime: {
-      'text/x-typescript': ['ts'],
+      "text/x-typescript": ["ts"]
     },
     webpack: webpackConfig,
     webpackMiddleware: {
@@ -35,34 +35,34 @@ module.exports = function(config) {
         errorDetails: true,
         hash: false,
         timings: false,
-        version: false,
-      },
+        version: false
+      }
     },
     exclude: [],
-    reporters: ['progress'],
+    reporters: ["progress"],
     coverageReporter: {
-      dir: '.build/coverage',
-      reporters: [{ type: 'html' }, { type: 'text' }, { type: 'lcov' }],
+      dir: ".build/coverage",
+      reporters: [{ type: "html" }, { type: "text" }, { type: "lcov" }]
     },
-    browsers: ['Chrome'],
+    browsers: ["Chrome"],
     customLaunchers: {
-      'saucelabs-chrome': {
-        base: 'SauceLabs',
-        browserName: 'Chrome',
-        platform: 'OS X 10.13',
-        version: '67.0',
-      },
+      "saucelabs-chrome": {
+        base: "SauceLabs",
+        browserName: "Chrome",
+        platform: "OS X 10.15",
+        version: "80.0"
+      }
     },
     sauceLabs: {
-      testName: 'Parchment Unit Tests',
+      testName: "Parchment Unit Tests",
       build: process.env.TRAVIS_BUILD_ID,
       tunnelIdentifier: process.env.TRAVIS_JOB_NUMBER,
-      startConnect: false,
+      startConnect: false
     },
     port: 10876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    singleRun: true,
+    singleRun: true
   });
 };

@@ -1,4 +1,4 @@
-import * as Registry from '../registry';
+import * as Registry from "../registry";
 
 export interface AttributorOptions {
   scope?: Registry.Scope;
@@ -12,12 +12,16 @@ export default class Attributor {
   whitelist: string[] | undefined;
 
   static keys(node: HTMLElement): string[] {
-    return [].map.call(node.attributes, function(item: Attr) {
+    return Array.from(node.attributes).map(function(item: Attr) {
       return item.name;
     });
   }
 
-  constructor(attrName: string, keyName: string, options: AttributorOptions = {}) {
+  constructor(
+    attrName: string,
+    keyName: string,
+    options: AttributorOptions = {}
+  ) {
     this.attrName = attrName;
     this.keyName = keyName;
     let attributeBit = Registry.Scope.TYPE & Registry.Scope.ATTRIBUTE;
@@ -37,11 +41,14 @@ export default class Attributor {
   }
 
   canAdd(node: HTMLElement, value: any): boolean {
-    let match = Registry.query(node, Registry.Scope.BLOT & (this.scope | Registry.Scope.TYPE));
+    let match = Registry.query(
+      node,
+      Registry.Scope.BLOT & (this.scope | Registry.Scope.TYPE)
+    );
     if (match == null) return false;
     if (this.whitelist == null) return true;
-    if (typeof value === 'string') {
-      return this.whitelist.indexOf(value.replace(/["']/g, '')) > -1;
+    if (typeof value === "string") {
+      return this.whitelist.indexOf(value.replace(/["']/g, "")) > -1;
     } else {
       return this.whitelist.indexOf(value) > -1;
     }
@@ -56,6 +63,6 @@ export default class Attributor {
     if (this.canAdd(node, value) && value) {
       return value;
     }
-    return '';
+    return "";
   }
 }
